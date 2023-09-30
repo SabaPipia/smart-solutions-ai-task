@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => {
+                  {row.getVisibleCells().map((cell: any) => {
                     return (
                       <TableCell key={cell.id}>
                         {flexRender(
@@ -75,15 +75,18 @@ export function DataTable<TData, TValue>({
                       </TableCell>
                     );
                   })}
-                  <TableCell>
-                    <Button variant="outline">Edit</Button>
+                  <TableCell className="flex">
+                    <Button className="w-full" variant="outline">
+                      Edit
+                    </Button>
                     <Button
                       variant="destructive"
                       onClick={() => {
                         dispath(removeUser(row.original.id));
                       }}
+                      className="w-full"
                     >
-                      Remove{row.original.id}
+                      Remove
                     </Button>
                   </TableCell>
                 </TableRow>
