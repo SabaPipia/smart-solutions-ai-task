@@ -6,7 +6,14 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -15,9 +22,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { removeUser } from "@/store/action";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -76,18 +94,127 @@ export function DataTable<TData, TValue>({
                     );
                   })}
                   <TableCell className="flex">
-                    <Button className="w-full" variant="outline">
-                      Edit
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      onClick={() => {
-                        dispath(removeUser(row.original.id));
-                      }}
-                      className="w-full"
-                    >
-                      Remove
-                    </Button>
+                    <div className="flex w-full">
+                      <Dialog>
+                        <DialogTrigger className="flex w-full">
+                          <Button variant="destructive" className="w-full">
+                            Remove
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogDescription>
+                              This action cannot be undone. This action will
+                              delete the user{" "}
+                              <span className="font-bold">
+                                {row.original.username}
+                              </span>
+                              .
+                              <div className="flex flex-col gap-4 mt-7">
+                                <DialogClose className="flex">
+                                  <Button
+                                    className="w-full"
+                                    variant="destructive"
+                                    onClick={() => {
+                                      dispath(removeUser(row.original.id));
+                                    }}
+                                  >
+                                    Confirm
+                                  </Button>
+                                </DialogClose>
+                                <DialogClose className="flex">
+                                  <Button
+                                    className="w-full"
+                                    variant="default"
+                                    onClick={() => {
+                                      dispath(removeUser(row.original.id));
+                                    }}
+                                  >
+                                    Cancel
+                                  </Button>
+                                </DialogClose>
+                              </div>
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                      <Dialog>
+                        <DialogTrigger className="flex w-full">
+                          <Button variant="outline" className="w-full">
+                            Edit
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Edit Profile</DialogTitle>
+                            <DialogDescription>
+                              Make changes to users profile here. Click save
+                              when you're done.
+                              <div className="grid gap-4 py-4">
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="name" className="text-right">
+                                    Username
+                                  </Label>
+                                  <Input
+                                    id="username"
+                                    defaultValue={row.original.username}
+                                    className="col-span-3"
+                                  />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label
+                                    htmlFor="username"
+                                    className="text-right"
+                                  >
+                                    Email
+                                  </Label>
+                                  <Input
+                                    id="email"
+                                    defaultValue={row.original.email}
+                                    className="col-span-3"
+                                  />
+                                </div>
+                                <div className="grid grid-cols-4 items-center gap-4">
+                                  <Label htmlFor="city" className="text-right">
+                                    City
+                                  </Label>
+                                  <Input
+                                    id="city"
+                                    defaultValue={row.original.address.city}
+                                    className="col-span-3"
+                                  />
+                                </div>
+                              </div>
+                              <div className="flex flex-col gap-4 mt-7">
+                                <DialogClose className="flex">
+                                  <Button
+                                    className="w-full"
+                                    variant="destructive"
+                                    onClick={() => {
+                                      dispath(removeUser(row.original.id));
+                                    }}
+                                  >
+                                    Confirm
+                                  </Button>
+                                </DialogClose>
+                                <DialogClose className="flex">
+                                  <Button
+                                    className="w-full"
+                                    variant="default"
+                                    onClick={() => {
+                                      dispath(removeUser(row.original.id));
+                                    }}
+                                  >
+                                    Cancel
+                                  </Button>
+                                </DialogClose>
+                              </div>
+                            </DialogDescription>
+                          </DialogHeader>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </TableCell>
                 </TableRow>
               );

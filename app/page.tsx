@@ -1,5 +1,6 @@
 "use client";
 
+import DialogWindow from "@/components/dialog";
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import { fetchUsers } from "@/store/action";
@@ -17,6 +18,7 @@ export default function Home() {
 
   return (
     <main className="pt-11 px-44 max-xl:px-20 max-md:px-10">
+      <DialogWindow />
       <DataTable columns={columns} data={users} />
     </main>
   );
