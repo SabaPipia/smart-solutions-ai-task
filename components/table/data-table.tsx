@@ -15,9 +15,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
 
-import { useDispatch } from "react-redux";
 import DialogActions from "../dialog";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,6 +34,12 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  const [progress, setProgress] = useState(13);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setProgress(66), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="rounded-md border">
@@ -82,7 +89,9 @@ export function DataTable<TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                <div className="flex justify-center">
+                  <Progress value={progress} className="w-[60%]" />
+                </div>
               </TableCell>
             </TableRow>
           )}
