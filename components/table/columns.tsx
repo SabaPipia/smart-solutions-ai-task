@@ -1,7 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
 
 export type Payment = {
   id: string;
@@ -22,15 +21,5 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "address.city",
     header: "city",
-  },
-  {
-    accessorKey: "actions",
-    header: "actions",
-    cell: (row) => (
-      <div className="flex gap-7">
-        <Button variant="outline">Edit</Button>
-        <Button variant="destructive">Delete</Button>
-      </div>
-    ),
   },
 ];

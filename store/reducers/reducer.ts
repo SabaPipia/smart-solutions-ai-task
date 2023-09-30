@@ -1,5 +1,10 @@
 import { actionInterface } from "@/types";
-import { FETCH_USERS, FETCH_USERS_ERROR } from "../types";
+import {
+  FETCH_USERS,
+  FETCH_USERS_ERROR,
+  REMOVE_USER,
+  REMOVE_USER_ERROR,
+} from "../types";
 
 const initialState = {
   error: null,
@@ -17,6 +22,23 @@ const reducer = (state = initialState, action: actionInterface) => {
         error: null,
       };
     case FETCH_USERS_ERROR:
+      return {
+        state,
+        loading: false,
+        error: action.payload,
+      };
+    case REMOVE_USER:
+      const updatedUsers = state.users.filter(
+        (user: any) => user.id !== action.payload
+      );
+      console.log(updatedUsers);
+      return {
+        // ...state,
+        users: updatedUsers,
+        loading: false,
+        error: null,
+      };
+    case REMOVE_USER_ERROR:
       return {
         state,
         loading: false,

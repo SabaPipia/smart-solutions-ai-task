@@ -1,5 +1,12 @@
 import { Dispatch } from "redux";
-import { FETCH_USERS, FETCH_USERS_ERROR, usersInterface } from "../types";
+import {
+  FETCH_USERS,
+  FETCH_USERS_ERROR,
+  REMOVE_USER,
+  REMOVE_USER_ERROR,
+  userRemoveInterface,
+  usersInterface,
+} from "../types";
 
 export const fetchUsers = () => async (dispatch: Dispatch<usersInterface>) => {
   try {
@@ -16,3 +23,30 @@ export const fetchUsers = () => async (dispatch: Dispatch<usersInterface>) => {
     });
   }
 };
+
+export const removeUser =
+  (userId: number) => async (dispatch: Dispatch<userRemoveInterface>) => {
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/users/${userId}`,
+        {
+          method: "DELETE",
+        }
+      ).then((res) => {
+        if (res.status !== 200) {
+          return;
+        } else {
+          console.log(res);
+        }
+      });
+      dispatch({
+        type: REMOVE_USER,
+        payload: userId,
+      });
+    } catch (error) {
+      dispatch({
+        type: REMOVE_USER_ERROR,
+        payload: "error",
+      });
+    }
+  };

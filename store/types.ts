@@ -4,3 +4,10 @@ export interface usersInterface {
   type: typeof FETCH_USERS | typeof FETCH_USERS_ERROR;
   payload: string;
 }
+
+export const REMOVE_USER = "REMOVE_USER";
+export const REMOVE_USER_ERROR = "REMOVE_USER_ERROR";
+export interface userRemoveInterface {
+  type: typeof REMOVE_USER | typeof REMOVE_USER_ERROR;
+  payload: string | number;
+}
