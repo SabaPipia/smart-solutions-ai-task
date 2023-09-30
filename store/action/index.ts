@@ -36,7 +36,7 @@ export const removeUser =
         if (res.status !== 200) {
           return;
         } else {
-          console.log(res);
+          // console.log(res);
         }
       });
       dispatch({

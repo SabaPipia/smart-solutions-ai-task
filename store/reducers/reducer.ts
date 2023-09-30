@@ -31,9 +31,7 @@ const reducer = (state = initialState, action: actionInterface) => {
       const updatedUsers = state.users.filter(
         (user: any) => user.id !== action.payload
       );
-      console.log(updatedUsers);
       return {
-        // ...state,
         users: updatedUsers,
         loading: false,
         error: null,
