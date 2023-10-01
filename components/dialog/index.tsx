@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,21 +10,43 @@ import {
 
 import { Button } from "../ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editUser, removeUser } from "@/store/action";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { errorContext } from "@/app/provider";
 
 const DialogActions = ({ row }: any) => {
   const [editedName, setEditedName] = useState<string>("");
   const [editedEmail, setEditedEmail] = useState<string>("");
   const [editedCity, setEditedCity] = useState<string>("");
-  const dispatch: (func: any) => void = useDispatch();
+  const context = useContext(errorContext);
 
+  const dispatch: (func: any) => void = useDispatch();
   const handleEdit = () => {
     if (editedName?.length !== 0 && editedEmail?.length !== 0 && editedCity) {
       dispatch(editUser({ row, editedName, editedEmail, editedCity }));
+      setTimeout(() => {
+        context.setIsSaved(true);
+      }, 100);
+      setTimeout(() => {
+        context.setIsSaved(false);
+      }, 3000);
+    } else if (
+      editedName.length === 0 ||
+      editedEmail.length === 0 ||
+      editedCity.length === 0
+    ) {
+      setTimeout(() => {
+        context.setIsError(true);
+      }, 100);
+      setTimeout(() => {
+        context.setIsError(false);
+      }, 3000);
     }
+  };
+  const handleRemove = () => {
+    dispatch(removeUser(row.original.id));
   };
 
   return (
@@ -49,9 +71,7 @@ const DialogActions = ({ row }: any) => {
               <Button
                 className="w-full"
                 variant="destructive"
-                onClick={() => {
-                  dispatch(removeUser(row.original.id));
-                }}
+                onClick={handleRemove}
               >
                 Confirm
               </Button>
@@ -72,7 +92,7 @@ const DialogActions = ({ row }: any) => {
             onClick={() => {
               setEditedName(row.original.name);
               setEditedEmail(row.original.email);
-              setEditedCity(row.original.city);
+              setEditedCity(row.original.address.city);
             }}
           >
             Edit
