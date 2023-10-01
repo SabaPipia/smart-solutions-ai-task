@@ -7,6 +7,7 @@ import {
   REMOVE_USER,
   REMOVE_USER_ERROR,
 } from "../types";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   error: null,
@@ -46,8 +47,10 @@ const reducer = (state = initialState, action: actionInterface) => {
       };
     case EDIT_USER:
       const editedUsers = state.users.map((user: any) => {
-        if (user.id === action.payload.id) {
-          user.username = "saba";
+        if (user.id === action.payload.row.original.id) {
+          user.name = action.payload.editedName;
+          user.email = action.payload.editedEmail;
+          user.address.city = action.payload.editedCity;
         }
         return user;
       });

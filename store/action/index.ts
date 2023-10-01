@@ -40,7 +40,7 @@ export const removeUser =
         if (res.status !== 200) {
           return;
         } else {
-          console.log(res);
+          return;
         }
       });
       dispatch({
@@ -56,14 +56,17 @@ export const removeUser =
   };
 
 export const editUser =
-  (row: rowInterface) => async (dispatch: Dispatch<userEditInterface>) => {
+  ({ row, editedName, editedEmail, editedCity }: rowInterface) =>
+  async (dispatch: Dispatch<userEditInterface>) => {
     try {
       await fetch(
         `https://jsonplaceholder.typicode.com/users/${row.original.id}`,
         {
           method: "PUT",
           body: JSON.stringify({
-            name: "saba",
+            name: editedName,
+            email: editedEmail,
+            city: editedCity,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
@@ -71,14 +74,14 @@ export const editUser =
         }
       ).then((response) => {
         if (response.status !== 200) {
-          console.log(response);
+          return;
         } else {
           return response.json();
         }
       });
       dispatch({
         type: EDIT_USER,
-        payload: row.original,
+        payload: { row, editedName, editedEmail, editedCity },
       });
     } catch (error) {
       dispatch({

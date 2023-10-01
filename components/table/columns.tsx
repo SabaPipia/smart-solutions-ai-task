@@ -4,15 +4,15 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export type Payment = {
   id: string;
-  username: string;
+  name: string;
   email: string;
   city: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "username",
-    header: "Username",
+    accessorKey: "name",
+    header: "Name",
   },
   {
     accessorKey: "email",

@@ -4,9 +4,14 @@ export interface actionInterface {
 }
 
 export interface rowInterface {
-  original: {
-    id: number;
-    username: string;
-    email: string;
+  row: {
+    original: {
+      id: number;
+      name: string;
+      email: string;
+    };
   };
+  editedName: string;
+  editedEmail: string;
+  editedCity: string;
 }
