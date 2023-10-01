@@ -11,13 +11,13 @@ import {
 import { Button } from "../ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useDispatch } from "react-redux";
-import { removeUser } from "@/store/action";
+import { editUser, removeUser } from "@/store/action";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const DialogActions = ({ row }: any) => {
-  const dispath: (func: any) => void = useDispatch();
-
+  const dispatch: (func: any) => void = useDispatch();
+  // console.log(row.original);
   return (
     <div className="flex w-full">
       <Dialog>
@@ -41,7 +41,7 @@ const DialogActions = ({ row }: any) => {
                 className="w-full"
                 variant="destructive"
                 onClick={() => {
-                  dispath(removeUser(row.original.id));
+                  dispatch(removeUser(row.original.id));
                 }}
               >
                 Confirm
@@ -105,9 +105,7 @@ const DialogActions = ({ row }: any) => {
               <Button
                 className="w-full"
                 variant="destructive"
-                onClick={() => {
-                  dispath(removeUser(row.original.id));
-                }}
+                onClick={() => dispatch(editUser(row))}
               >
                 Confirm
               </Button>

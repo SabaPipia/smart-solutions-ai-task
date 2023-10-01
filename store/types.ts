@@ -1,3 +1,5 @@
+import { rowInterface } from "@/types";
+
 export const FETCH_USERS = "FETCH_USERS";
 export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
 export interface usersInterface {
@@ -10,4 +12,11 @@ export const REMOVE_USER_ERROR = "REMOVE_USER_ERROR";
 export interface userRemoveInterface {
   type: typeof REMOVE_USER | typeof REMOVE_USER_ERROR;
   payload: string | number;
+}
+
+export const EDIT_USER = "EDIT_USER";
+export const EDIT_USER_ERROR = "EDIT_USEr_ERROR";
+export interface userEditInterface {
+  type: typeof EDIT_USER | typeof EDIT_USER_ERROR;
+  payload: string | rowInterface | any;
 }
