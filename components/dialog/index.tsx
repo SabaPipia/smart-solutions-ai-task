@@ -17,9 +17,9 @@ import { Label } from "@/components/ui/label";
 
 const DialogActions = ({ row }: any) => {
   const dispatch: (func: any) => void = useDispatch();
-  // console.log(row.original);
+
   return (
-    <div className="flex w-full">
+    <div className="flex w-full gap-12">
       <Dialog>
         <DialogTrigger className="flex w-full" asChild>
           <Button variant="destructive">Remove</Button>

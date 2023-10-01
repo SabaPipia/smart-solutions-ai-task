@@ -51,11 +51,7 @@ const reducer = (state = initialState, action: actionInterface) => {
         }
         return user;
       });
-      const filtered = state.users.filter(
-        (user: any) => user.id === action.payload.id
-      );
 
-      console.log(editedUsers);
       return {
         users: editedUsers,
         loading: false,
