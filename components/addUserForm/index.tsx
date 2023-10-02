@@ -24,8 +24,8 @@ const AddUserForm = () => {
 
     setUserInputs((prevUserInputs) => ({
       ...prevUserInputs,
-      emailError: !emailRegex.test(prevUserInputs.email),
       nameError: !nameRegex.test(prevUserInputs.name),
+      emailError: !emailRegex.test(prevUserInputs.email),
       cityError: !cityRegex.test(prevUserInputs.address.city),
     }));
 
@@ -35,6 +35,12 @@ const AddUserForm = () => {
       cityRegex.test(userInputs.address.city)
     ) {
       dispatch(addUser(userInputs));
+      setUserInputs((prevInputs) => ({
+        ...prevInputs,
+        name: "",
+        email: "",
+        address: { ...userInputs.address, city: "" },
+      }));
     }
   };
 
@@ -58,7 +64,13 @@ const AddUserForm = () => {
         />
       </div>
       <div className="w-full">
-        <Label>Email</Label>
+        <Label
+          className={`pl-3 ${
+            userInputs.emailError ? "text-red-500" : "text-black"
+          }`}
+        >
+          Email
+        </Label>
         <Input
           id="email"
           className={`pl-3 ${userInputs.emailError ? "border-red-500" : ""}`}
@@ -69,7 +81,13 @@ const AddUserForm = () => {
         />
       </div>
       <div className="w-full">
-        <Label>City</Label>
+        <Label
+          className={`pl-3 ${
+            userInputs.cityError ? "text-red-500" : "text-black"
+          }`}
+        >
+          City
+        </Label>
         <Input
           id="city"
           className={`pl-3 ${userInputs.cityError ? "border-red-500" : ""}`}
