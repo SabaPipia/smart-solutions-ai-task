@@ -3,23 +3,39 @@
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import { fetchUsers } from "@/store/action";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { errorContext } from "./provider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
 import AddUserForm from "@/components/addUserForm";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
+  const [pagCount, setPagCount] = useState(0);
   const { isError, isSaved, setIsError, setIsSaved } = useContext(errorContext);
   const dispatch: (func: any) => void = useDispatch();
   const DATA = useSelector((state: any) => state.data);
   const { users, loading } = DATA;
 
+  const usersPerPage = 3; // default:10
+  const currentPage = pagCount;
+  const startIndex = currentPage * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const usersToDisplay = users.slice(startIndex, endIndex);
+  // console.log(startIndex);
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
-  console.log(loading);
+
+  const handlePageChange = (page: any) => {
+    console.log(typeof page);
+
+    setPagCount(page);
+  };
+
   return (
     <main className="relative py-11 px-44 max-xl:px-20 max-md:px-10">
       <Alert
@@ -42,7 +58,20 @@ export default function Home() {
         </AlertDescription>
       </Alert>
       <AddUserForm />
-      <DataTable columns={columns} data={users} />
+      <DataTable columns={columns} data={usersToDisplay} />
+      <div className="flex justify-center mt-5">
+        {currentPage != 0 && (
+          <Button onClick={() => handlePageChange(currentPage - 1)}>
+            Previous Page
+          </Button>
+        )}
+
+        {endIndex < users.length && (
+          <Button onClick={() => handlePageChange(currentPage + 1)}>
+            Next Page
+          </Button>
+        )}
+      </div>
     </main>
   );
 }

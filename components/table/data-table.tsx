@@ -65,26 +65,31 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row: any) => {
-              return (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell: any) => {
-                    return (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                  <TableCell className="flex">
-                    <DialogActions row={row} />
-                  </TableCell>
-                </TableRow>
-              );
+              if (row.original.id <= 10) {
+                return (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell: any) => {
+                      return (
+                        <TableCell key={cell.id}>
+                          <span className="text-red-600">
+                            {row.original.id}
+                          </span>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                    <TableCell className="flex">
+                      <DialogActions row={row} />
+                    </TableCell>
+                  </TableRow>
+                );
+              }
             })
           ) : (
             <TableRow>
