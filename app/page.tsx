@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { errorContext } from "./provider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
+import AddUserForm from "@/components/addUserForm";
 
 export default function Home() {
   const { isError, isSaved, setIsError, setIsSaved } = useContext(errorContext);
@@ -40,6 +41,7 @@ export default function Home() {
             : "Your changes have been successfully saved."}
         </AlertDescription>
       </Alert>
+      <AddUserForm />
       <DataTable columns={columns} data={users} />
     </main>
   );
