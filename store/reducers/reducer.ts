@@ -1,5 +1,7 @@
 import { actionInterface } from "@/types";
 import {
+  ADD_USER,
+  ADD_USER_ERROR,
   EDIT_USER,
   EDIT_USER_ERROR,
   FETCH_USERS,
@@ -7,7 +9,7 @@ import {
   REMOVE_USER,
   REMOVE_USER_ERROR,
 } from "../types";
-import { act } from "react-dom/test-utils";
+import { use } from "react";
 
 const initialState = {
   error: null,
@@ -61,6 +63,22 @@ const reducer = (state = initialState, action: actionInterface) => {
         error: null,
       };
     case EDIT_USER_ERROR:
+      return {
+        state,
+        loading: false,
+        error: action.payload,
+      };
+    case ADD_USER:
+      state.users.map((user: any) => {
+        user.id += 1;
+      });
+
+      return {
+        users: [action.payload, ...state.users],
+        loading: false,
+        error: null,
+      };
+    case ADD_USER_ERROR:
       return {
         state,
         loading: false,

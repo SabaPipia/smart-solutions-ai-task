@@ -19,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
-
+  console.log(loading);
   return (
     <main className="relative py-11 px-44 max-xl:px-20 max-md:px-10">
       <Alert

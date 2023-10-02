@@ -15,3 +15,12 @@ export interface rowInterface {
   editedEmail: string;
   editedCity: string;
 }
+
+export interface addUserInterface {
+  id: number;
+  name: string;
+  email: string;
+  address: {
+    city: string;
+  };
+}

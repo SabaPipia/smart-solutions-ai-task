@@ -1,16 +1,19 @@
 import { Dispatch } from "redux";
 import {
+  ADD_USER,
+  ADD_USER_ERROR,
   EDIT_USER,
   EDIT_USER_ERROR,
   FETCH_USERS,
   FETCH_USERS_ERROR,
   REMOVE_USER,
   REMOVE_USER_ERROR,
+  userAddInterface,
   userEditInterface,
   userRemoveInterface,
   usersInterface,
 } from "../types";
-import { rowInterface } from "@/types";
+import { addUserInterface, rowInterface } from "@/types";
 
 export const fetchUsers = () => async (dispatch: Dispatch<usersInterface>) => {
   try {
@@ -86,6 +89,39 @@ export const editUser =
     } catch (error) {
       dispatch({
         type: EDIT_USER_ERROR,
+        payload: "error",
+      });
+    }
+  };
+
+export const addUser =
+  ({ id, name, email, address }: addUserInterface) =>
+  async (dispatch: Dispatch<userAddInterface>) => {
+    try {
+      await fetch("https://jsonplaceholder.typicode.com/users", {
+        method: "POST",
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          city: address.city,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }).then((response) => {
+        if (response.status !== 200) {
+          return;
+        } else {
+          return response.json();
+        }
+      });
+      dispatch({
+        type: ADD_USER,
+        payload: { name, email, address, id },
+      });
+    } catch (error) {
+      dispatch({
+        type: ADD_USER_ERROR,
         payload: "error",
       });
     }

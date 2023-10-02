@@ -15,8 +15,15 @@ export interface userRemoveInterface {
 }
 
 export const EDIT_USER = "EDIT_USER";
-export const EDIT_USER_ERROR = "EDIT_USEr_ERROR";
+export const EDIT_USER_ERROR = "EDIT_USER_ERROR";
 export interface userEditInterface {
   type: typeof EDIT_USER | typeof EDIT_USER_ERROR;
+  payload: string | rowInterface;
+}
+
+export const ADD_USER = "ADD_USER";
+export const ADD_USER_ERROR = "ADD_USER_ERROR";
+export interface userAddInterface {
+  type: typeof ADD_USER | typeof ADD_USER_ERROR;
   payload: string | rowInterface | any;
 }

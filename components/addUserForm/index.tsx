@@ -1,17 +1,20 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { useDispatch } from "react-redux";
 import React, { ChangeEvent, useState } from "react";
+import { addUser } from "@/store/action";
 
 const AddUserForm = () => {
+  const dispatch: (func: any) => void = useDispatch();
   const [userInputs, setUserInputs] = useState({
     name: "",
     nameError: false,
     email: "",
     emailError: false,
-    city: "",
+    address: { city: "" },
     cityError: false,
+    id: 1,
   });
 
   const handleSubmit = () => {
@@ -23,8 +26,16 @@ const AddUserForm = () => {
       ...prevUserInputs,
       nameError: !nameRegex.test(prevUserInputs.name),
       emailError: !emailRegex.test(prevUserInputs.email),
-      cityError: !cityRegex.test(prevUserInputs.city),
+      cityError: !cityRegex.test(prevUserInputs.address.city),
     }));
+
+    if (
+      nameRegex.test(userInputs.name) &&
+      emailRegex.test(userInputs.email) &&
+      cityRegex.test(userInputs.address.city)
+    ) {
+      dispatch(addUser(userInputs));
+    }
   };
 
   return (
@@ -60,9 +71,12 @@ const AddUserForm = () => {
         <Label>City</Label>
         <Input
           id="city"
-          value={userInputs.city}
+          value={userInputs.address.city}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUserInputs({ ...userInputs, city: e.target.value })
+            setUserInputs({
+              ...userInputs,
+              address: { ...userInputs.address, city: e.target.value },
+            })
           }
         />
       </div>
