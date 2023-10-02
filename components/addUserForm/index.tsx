@@ -24,8 +24,8 @@ const AddUserForm = () => {
 
     setUserInputs((prevUserInputs) => ({
       ...prevUserInputs,
-      nameError: !nameRegex.test(prevUserInputs.name),
       emailError: !emailRegex.test(prevUserInputs.email),
+      nameError: !nameRegex.test(prevUserInputs.name),
       cityError: !cityRegex.test(prevUserInputs.address.city),
     }));
 
@@ -61,6 +61,7 @@ const AddUserForm = () => {
         <Label>Email</Label>
         <Input
           id="email"
+          className={`pl-3 ${userInputs.emailError ? "border-red-500" : ""}`}
           value={userInputs.email}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setUserInputs({ ...userInputs, email: e.target.value })
@@ -71,6 +72,7 @@ const AddUserForm = () => {
         <Label>City</Label>
         <Input
           id="city"
+          className={`pl-3 ${userInputs.cityError ? "border-red-500" : ""}`}
           value={userInputs.address.city}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setUserInputs({
