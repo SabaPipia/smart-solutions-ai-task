@@ -10,7 +10,7 @@ import {
 
 import { Button } from "../ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editUser, removeUser } from "@/store/action";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -63,11 +63,11 @@ const DialogActions = ({ row }: any) => {
               <span className="font-bold from-neutral-950">
                 {row.original.name}
               </span>
-              .
+              &apos;.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4 mt-7">
-            <DialogClose className="flex" asChild>
+            <DialogClose className="flex">
               <Button
                 className="w-full"
                 variant="destructive"
@@ -102,7 +102,7 @@ const DialogActions = ({ row }: any) => {
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>
-              Make changes to users profile here. Click save when you're done.
+              Make changes to users profile here. Click save when youre done.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
