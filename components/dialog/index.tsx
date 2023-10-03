@@ -66,7 +66,7 @@ const DialogActions = ({ row }: rowInterface) => {
   };
 
   return (
-    <div className="flex w-full gap-12">
+    <div className="flex w-full gap-12 max-[716px]:gap-2">
       <Dialog>
         <DialogTrigger className="flex w-full" asChild>
           <Button variant="destructive">Remove</Button>

@@ -17,8 +17,7 @@ export default function Home() {
   const { isError, isSaved, setIsError, setIsSaved } = useContext(errorContext);
   const dispatch: (func: any) => void = useDispatch();
   const DATA = useSelector((state: stateInterface) => state.data);
-  const { users, loading } = DATA;
-  const context = useContext(errorContext);
+  const { users } = DATA;
 
   const usersPerPage = 10;
   const currentPage = pagCount;
@@ -33,9 +32,8 @@ export default function Home() {
   const handlePageChange = (page: number) => {
     setPagCount(page);
   };
-
   return (
-    <main className="relative py-11 px-44 max-xl:px-20 max-md:px-10">
+    <main className="relative py-11 px-44 max-xl:px-20 max-[870px]:px-2">
       <Alert
         onClick={() => {
           setIsError(false);
@@ -43,7 +41,7 @@ export default function Home() {
         }}
         className={`cursor-pointer fixed bottom-10 left-10 bg-white w-max z-50 hover:translate-y-[-0.5rem] marker:${
           isSaved ? "border-green-600" : "border-red-600"
-        } border-[1px] ${isError || isSaved ? "opacity-100" : "opacity-0"} `}
+        } border-[1px] ${isError || isSaved ? "block" : "hidden"} `}
       >
         <Terminal className="h-4 w-4" />
         <AlertTitle className="text-sm">

@@ -4,8 +4,10 @@ import {
   ADD_USER_ERROR,
   EDIT_USER,
   EDIT_USER_ERROR,
+  FETCH_USER,
   FETCH_USERS,
   FETCH_USERS_ERROR,
+  FETCH_USER_ERROR,
   REMOVE_USER,
   REMOVE_USER_ERROR,
 } from "../types";
@@ -14,14 +16,14 @@ const initialState = {
   error: null,
   loading: false,
   users: [],
+  user: [],
 };
 
 const reducer = (state = initialState, action: actionInterface) => {
   switch (action.type) {
     case FETCH_USERS:
       return {
-        ...state,
-        users: action.payload,
+        users: state.users.length != 0 ? [...state.users] : action.payload,
         loading: false,
         error: null,
       };
@@ -80,6 +82,22 @@ const reducer = (state = initialState, action: actionInterface) => {
     case ADD_USER_ERROR:
       return {
         state,
+        loading: false,
+        error: action.payload,
+      };
+    case FETCH_USER:
+      const singleUser = state.users.filter(
+        (user: userInterface) => user.id === action.payload
+      );
+      return {
+        users: state.users,
+        loading: false,
+        user: singleUser,
+        error: null,
+      };
+    case FETCH_USER_ERROR:
+      return {
+        ...state,
         loading: false,
         error: action.payload,
       };

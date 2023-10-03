@@ -4,10 +4,13 @@ import {
   ADD_USER_ERROR,
   EDIT_USER,
   EDIT_USER_ERROR,
+  FETCH_USER,
   FETCH_USERS,
   FETCH_USERS_ERROR,
+  FETCH_USER_ERROR,
   REMOVE_USER,
   REMOVE_USER_ERROR,
+  singleUserInterface,
   userAddInterface,
   userEditInterface,
   userRemoveInterface,
@@ -122,6 +125,21 @@ export const addUser =
     } catch (error) {
       dispatch({
         type: ADD_USER_ERROR,
+        payload: "error",
+      });
+    }
+  };
+
+export const fetchSingleUser =
+  (id: number) => async (dispatch: Dispatch<singleUserInterface>) => {
+    try {
+      dispatch({
+        type: FETCH_USER,
+        payload: id,
+      });
+    } catch (error) {
+      dispatch({
+        type: FETCH_USER_ERROR,
         payload: "error",
       });
     }

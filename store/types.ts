@@ -1,4 +1,4 @@
-import { rowInterface } from "@/types";
+import { rowInterface, userInterface } from "@/types";
 
 export const FETCH_USERS = "FETCH_USERS";
 export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
@@ -26,4 +26,11 @@ export const ADD_USER_ERROR = "ADD_USER_ERROR";
 export interface userAddInterface {
   type: typeof ADD_USER | typeof ADD_USER_ERROR;
   payload: string | rowInterface | any;
+}
+
+export const FETCH_USER = "FETCH_USER";
+export const FETCH_USER_ERROR = "FETCH_USER_ERROR";
+export interface singleUserInterface {
+  type: typeof FETCH_USER | typeof FETCH_USER_ERROR;
+  payload: string | number;
 }

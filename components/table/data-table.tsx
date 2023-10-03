@@ -16,13 +16,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Progress } from "@/components/ui/progress";
-
 import DialogActions from "../dialog";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CellInter, rowInter } from "@/types";
 import { errorContext } from "@/app/provider";
 import Loader from "../loader";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -38,17 +37,10 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const router = useRouter();
   const context = useContext(errorContext);
 
-  const [progress, setProgress] = useState(13);
-
-  useEffect(() => {
-    setProgress(13);
-  }, [context.isLoading]);
-
-  useEffect(() => {
-    setTimeout(() => setProgress(66), 500);
-  }, []);
   return (
     <div className="rounded-md border">
       <Table>
@@ -73,28 +65,36 @@ export function DataTable<TData, TValue>({
         <TableBody>
           {table.getRowModel().rows?.length && !context.isLoading ? (
             table.getRowModel().rows.map((row: rowInter) => {
-              if (row.original.id <= 10) {
-                return (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell: CellInter) => {
-                      return (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                    <TableCell className="flex">
-                      <DialogActions row={row} />
-                    </TableCell>
-                  </TableRow>
-                );
-              }
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell: CellInter) => {
+                    return (
+                      <TableCell
+                        key={cell.id}
+                        className={`${
+                          cell.id.includes("_name") ? "cursor-pointer" : null
+                        } max-[678px]:p-1`}
+                        onClick={() =>
+                          cell.id.includes("name")
+                            ? router.push(`${row.original.id}`)
+                            : null
+                        }
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                  <TableCell className="flex">
+                    <DialogActions row={row} />
+                  </TableCell>
+                </TableRow>
+              );
             })
           ) : (
             <TableRow>
