@@ -2,11 +2,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { addUser } from "@/store/action";
+import { errorContext } from "@/app/provider";
 
 const AddUserForm = () => {
   const dispatch: (func: any) => void = useDispatch();
+  const context = useContext(errorContext);
   const [userInputs, setUserInputs] = useState({
     name: "",
     nameError: false,
@@ -17,7 +19,8 @@ const AddUserForm = () => {
     id: 1,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    context.setIsLoading(true);
     const nameRegex = /^[A-Za-z]{2,}( [A-Za-z]{2,})+$/;
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const cityRegex = /^[A-Za-z\s]+$/;
@@ -34,13 +37,16 @@ const AddUserForm = () => {
       emailRegex.test(userInputs.email) &&
       cityRegex.test(userInputs.address.city)
     ) {
-      dispatch(addUser(userInputs));
+      await dispatch(addUser(userInputs));
       setUserInputs((prevInputs) => ({
         ...prevInputs,
         name: "",
         email: "",
         address: { ...userInputs.address, city: "" },
       }));
+      context.setIsLoading(false);
+    } else {
+      context.setIsLoading(false);
     }
   };
 
