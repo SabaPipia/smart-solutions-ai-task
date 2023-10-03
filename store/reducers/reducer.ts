@@ -1,4 +1,4 @@
-import { actionInterface } from "@/types";
+import { actionInterface, userInterface } from "@/types";
 import {
   ADD_USER,
   ADD_USER_ERROR,
@@ -9,7 +9,6 @@ import {
   REMOVE_USER,
   REMOVE_USER_ERROR,
 } from "../types";
-import { use } from "react";
 
 const initialState = {
   error: null,
@@ -34,7 +33,7 @@ const reducer = (state = initialState, action: actionInterface) => {
       };
     case REMOVE_USER:
       const updatedUsers = state.users.filter(
-        (user: any) => user.id !== action.payload
+        (user: userInterface) => user.id !== action.payload
       );
       return {
         users: updatedUsers,

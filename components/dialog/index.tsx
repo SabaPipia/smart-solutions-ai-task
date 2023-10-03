@@ -15,8 +15,9 @@ import { editUser, removeUser } from "@/store/action";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { errorContext } from "@/app/provider";
+import { rowInterface } from "@/types";
 
-const DialogActions = ({ row }: any) => {
+const DialogActions = ({ row }: rowInterface) => {
   const [editedName, setEditedName] = useState<string>("");
   const [editedEmail, setEditedEmail] = useState<string>("");
   const [editedCity, setEditedCity] = useState<string>("");

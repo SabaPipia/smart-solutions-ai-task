@@ -15,10 +15,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import { Progress } from "@/components/ui/progress";
 
 import DialogActions from "../dialog";
 import { useEffect, useState } from "react";
+import { CellInter, rowInter } from "@/types";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -64,19 +66,16 @@ export function DataTable<TData, TValue>({
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row: any) => {
+            table.getRowModel().rows.map((row: rowInter) => {
               if (row.original.id <= 10) {
                 return (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                   >
-                    {row.getVisibleCells().map((cell: any) => {
+                    {row.getVisibleCells().map((cell: CellInter) => {
                       return (
                         <TableCell key={cell.id}>
-                          <span className="text-red-600">
-                            {row.original.id}
-                          </span>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

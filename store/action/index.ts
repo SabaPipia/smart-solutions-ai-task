@@ -13,7 +13,7 @@ import {
   userRemoveInterface,
   usersInterface,
 } from "../types";
-import { addUserInterface, rowInterface } from "@/types";
+import { addUserInterface, editedUser, rowInterface } from "@/types";
 
 export const fetchUsers = () => async (dispatch: Dispatch<usersInterface>) => {
   try {
@@ -59,7 +59,7 @@ export const removeUser =
   };
 
 export const editUser =
-  ({ row, editedName, editedEmail, editedCity }: rowInterface) =>
+  ({ row, editedName, editedEmail, editedCity }: editedUser) =>
   async (dispatch: Dispatch<userEditInterface>) => {
     try {
       await fetch(

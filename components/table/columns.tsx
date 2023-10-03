@@ -1,15 +1,9 @@
 "use client";
 
+import { userInterface } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 
-export type Payment = {
-  id: string;
-  name: string;
-  email: string;
-  city: string;
-};
-
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<userInterface>[] = [
   {
     accessorKey: "name",
     header: "Name",

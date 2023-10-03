@@ -8,31 +8,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { errorContext } from "./provider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
-import AddUserForm from "@/components/addUserForm";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import AddUserForm from "@/components/addUserForm";
+import { stateInterface } from "@/types";
 
 export default function Home() {
   const [pagCount, setPagCount] = useState(0);
   const { isError, isSaved, setIsError, setIsSaved } = useContext(errorContext);
   const dispatch: (func: any) => void = useDispatch();
-  const DATA = useSelector((state: any) => state.data);
+  const DATA = useSelector((state: stateInterface) => state.data);
   const { users, loading } = DATA;
 
-  const usersPerPage = 3; // default:10
+  const usersPerPage = 10; // default:10
   const currentPage = pagCount;
   const startIndex = currentPage * usersPerPage;
   const endIndex = startIndex + usersPerPage;
   const usersToDisplay = users.slice(startIndex, endIndex);
-  // console.log(startIndex);
+
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const handlePageChange = (page: any) => {
-    console.log(typeof page);
-
+  const handlePageChange = (page: number) => {
     setPagCount(page);
   };
 
