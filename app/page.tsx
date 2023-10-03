@@ -3,7 +3,7 @@
 import { columns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import { fetchUsers } from "@/store/action";
-import { useContext, useEffect, useState } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { errorContext } from "./provider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -18,8 +18,9 @@ export default function Home() {
   const dispatch: (func: any) => void = useDispatch();
   const DATA = useSelector((state: stateInterface) => state.data);
   const { users, loading } = DATA;
+  const context = useContext(errorContext);
 
-  const usersPerPage = 10; // default:10
+  const usersPerPage = 10;
   const currentPage = pagCount;
   const startIndex = currentPage * usersPerPage;
   const endIndex = startIndex + usersPerPage;

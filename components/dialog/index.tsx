@@ -24,9 +24,12 @@ const DialogActions = ({ row }: rowInterface) => {
   const context = useContext(errorContext);
 
   const dispatch: (func: any) => void = useDispatch();
-  const handleEdit = () => {
+
+  const handleEdit = async () => {
+    context.setIsLoading(true);
     if (editedName?.length !== 0 && editedEmail?.length !== 0 && editedCity) {
-      dispatch(editUser({ row, editedName, editedEmail, editedCity }));
+      await dispatch(editUser({ row, editedName, editedEmail, editedCity }));
+      context.setIsLoading(false);
       setTimeout(() => {
         context.setIsSaved(true);
       }, 100);
@@ -46,8 +49,20 @@ const DialogActions = ({ row }: rowInterface) => {
       }, 3000);
     }
   };
-  const handleRemove = () => {
-    dispatch(removeUser(row.original.id));
+  const handleRemove = async () => {
+    context.setIsLoading(true);
+    try {
+      await dispatch(removeUser(row.original.id));
+      context.setIsLoading(false);
+    } catch {
+      context.setIsLoading(false);
+    }
+    setTimeout(() => {
+      context.setIsSaved(true);
+    }, 100);
+    setTimeout(() => {
+      context.setIsSaved(false);
+    }, 3000);
   };
 
   return (
@@ -68,7 +83,7 @@ const DialogActions = ({ row }: rowInterface) => {
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4 mt-7">
-            <DialogClose className="flex">
+            <DialogClose className="flex" asChild>
               <Button
                 className="w-full"
                 variant="destructive"

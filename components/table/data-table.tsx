@@ -19,8 +19,10 @@ import {
 import { Progress } from "@/components/ui/progress";
 
 import DialogActions from "../dialog";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CellInter, rowInter } from "@/types";
+import { errorContext } from "@/app/provider";
+import Loader from "../loader";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -36,13 +38,17 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+  const context = useContext(errorContext);
+
   const [progress, setProgress] = useState(13);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    setProgress(13);
+  }, [context.isLoading]);
 
+  useEffect(() => {
+    setTimeout(() => setProgress(66), 500);
+  }, []);
   return (
     <div className="rounded-md border">
       <Table>
@@ -65,7 +71,7 @@ export function DataTable<TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {table.getRowModel().rows?.length && !context.isLoading ? (
             table.getRowModel().rows.map((row: rowInter) => {
               if (row.original.id <= 10) {
                 return (
@@ -94,7 +100,7 @@ export function DataTable<TData, TValue>({
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 <div className="flex justify-center">
-                  <Progress value={progress} className="w-[60%]" />
+                  <Loader />
                 </div>
               </TableCell>
             </TableRow>
