@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+git clone git@github.com:SabaPipia/smart-solutions-ai-task.git
+cd smart-solutions-ai-task
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+## The main feature of this application is the user table, which displays user information including name, email, city, and actions.
+<ul>
+    <li>Name: Clicking on a user's name row will redirect you to the user details page.</li>
+    <li>Edit: Clicking the "Edit" button for a user will open a modal where you can edit their details.</li>
+    <li>Delete: Clicking the "Delete" button for a user will open a modal asking for confirmation before deleting the user.</li>
+    <li>Pagination: The user table is divided into multiple pages, with each page displaying a maximum of 10 users. You can easily switch between pages using the provided pagination controls, allowing you to navigate through the entire list of users           efficiently.</li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## User Details Page
+<ul>
+    <li>Name</li>
+    <li>Email</li>
+    <li>City</li>
+    <li>Address</li>
+    <li>Back Button: Clicking the "back" button will return you to the users table</li>
+</ul>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Actions
 
-## Learn More
+### Edit User
+<ul>
+    <li>To edit a user, click the "Edit" button in the user table</li>
+    <li>A modal will open with the user's current details.</li>
+    <li>Modify the user's information as needed and click the "Confirm" button.</li>
+    <li>You will receive a success or failure alert based on the result.</li>
+</ul>
+### Delete User:
+<ul>
+    <li>To delete a user, click the "Delete" button in the user table.</li>
+    <li>A modal will open, asking for confirmation.</li>
+    <li>Confirm the action to delete the user or cancel to abort.</li>
+    <li>You will receive a success or failure alert based on the result.</li>
+</ul>
 
-To learn more about Next.js, take a look at the following resources:
+## Modals
+### Edit User Modal:
+<ul>
+    <li>The edit user modal allows you to update a user's information.</li>
+    <li>It includes a backdrop that can be closed by clicking outside the modal or the "Cancel" button.</li>
+</ul>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Delete User Modal:
+<ul>
+      <li>The delete user modal asks for confirmation before deleting a user.</li>
+      <li>It includes a backdrop that can be closed by clicking outside the modal or the "Cancel" button.</li>
+</ul>
