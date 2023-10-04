@@ -55,7 +55,7 @@ export default function Home() {
       </Alert>
       <AddUserForm />
       <DataTable columns={columns} data={usersToDisplay} />
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 gap-6">
         {currentPage != 0 && (
           <Button onClick={() => handlePageChange(currentPage - 1)}>
             Previous Page
