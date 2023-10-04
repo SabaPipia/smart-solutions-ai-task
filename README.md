@@ -53,3 +53,10 @@ npm run dev
       <li>The delete user modal asks for confirmation before deleting a user.</li>
       <li>It includes a backdrop that can be closed by clicking outside the modal or the "Cancel" button.</li>
 </ul>
+
+## Pagination
+<ul>
+    <li>The user table implements pagination, displaying 10 users per page.</li>
+    <li>You can navigate between pages using the pagination controls at the bottom of the table.</li>
+</ul>
+
