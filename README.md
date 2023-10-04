@@ -1,3 +1,12 @@
+## Tech Stack
+<ul>
+    <li>Next.js</li>
+    <li>Tailwind CSS</li>
+    <li>shadcn/ui</li>
+    <li>TypeScript</li>
+    <li>React-Redux (Thunk) and Context API</li>
+</ul>
+
 ## Getting Started
 
 ```bash
