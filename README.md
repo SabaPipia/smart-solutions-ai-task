@@ -69,3 +69,6 @@ npm run dev
     <li>You can navigate between pages using the pagination controls at the bottom of the table.</li>
 </ul>
 
+## Regex
+Regex is used for input validation, ensuring data accuracy and user-friendly feedback.
+
